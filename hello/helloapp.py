@@ -12,11 +12,11 @@ app = Flask(__name__)
 
 # DB params that will be used to connec to the db
 db_params = {
-        'db': 'test',
-        'user': 'test',
-        'pass': 'test',
-        'host': 'localhost',
-        'port': '5432'
+        'db': os.environ.get("PGDB"),
+        'user': os.environ.get("PGUSER"),
+        'pass': os.environ.get("PGPASS"),
+        'host': os.environ.get("PGHOST"),
+        'port': os.environ.get("PGPORT")
     }
 
 # test endpoint
@@ -58,4 +58,4 @@ def getuser(username):
             return jsonify(message=bday_is)
              
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT")))

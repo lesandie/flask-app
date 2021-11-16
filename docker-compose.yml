@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  myapp:
+    image: myapp
+    container_name: bday_app
+    ports:
+      - 6000:6000
+    environment: 
+      PG_DATABASE: test
+      PG_PORT: 5432
+      PG_USER: test
+      PG_PASS: test
+      PG_HOST: 192.168.11.171

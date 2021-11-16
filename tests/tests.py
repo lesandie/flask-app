@@ -1,8 +1,8 @@
 import sys
 sys.path.append("/home/dnieto/Repos/revolut/app")
-import app
 import requests
 import json
+import helloapp
 from database import *
 
 db_params = {
