@@ -1,17 +1,16 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/python3
 """
-FLASK_APP=simple_flask_server.py flask run -h 127.0.0.1
+Flask birthday app for Revolut 
 """
 
 from flask import Flask, request, jsonify
 import sys, os
 from datetime import datetime
 from database import *
-import time
 
 app = Flask(__name__)
 
+# DB params that will be used to connec to the db
 db_params = {
         'db': 'test',
         'user': 'test',
@@ -20,28 +19,32 @@ db_params = {
         'port': '5432'
     }
 
+# test endpoint
 @app.route('/')
 def hello():
     return "hello"
 
-
+# PUT endpoint
 @app.route('/hello/<username>', methods=['PUT'])
 def adduser(username):
-    # a multidict containing POST data
     content = request.json
     put_data(username, content['dateOfBirth'], db_params)
     return "", 204
 
+# GET endpoint
 @app.route('/hello/<username>', methods=['GET'])
 def getuser(username):
+    # check in db for the username's birthday
     date = get_data(username, db_params)
     if date is None:
         not_found = f"{username} not found"
         return jsonify(message=not_found)
     else:
-
+        # user found
         tday = datetime.today()
         bday = datetime.strptime(date, '%Y-%m-%d')
+        # replace year
+        bday = bday.replace(year=tday.year)
         if tday == bday:
             bday_is = f"Hello! {username} Happy Birthday!"
             return jsonify(message=bday_is)

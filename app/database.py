@@ -1,3 +1,5 @@
+# Database methods using psycopg2
+
 import psycopg2
 
 def connect_postgres(db_params: dict):
@@ -16,27 +18,30 @@ def connect_postgres(db_params: dict):
 
 def put_data(username, bday, db_params: dict):
     """
-        put data into postgres
+        Puts data (username and birthdate into postgres) 
     """ 
     query = f"INSERT INTO bday (username, birthday) VALUES ('{username}', to_timestamp('{bday}', 'YYYY-MM-DD'));"
     conn = connect_postgres(db_params)
     with conn.cursor() as cursor:
         cursor.execute(query)
-        # Important to commit the COPY or any other UPSERT/DELETE
+        # Important to commit with any UPSERT/DELETE
         conn.commit()
         print("PostgreSQL connection closed")
 
 def get_data(username, db_params: dict):
+    """
+        Returns the birthdate for a given username
+    """
     query = f"SELECT to_char(birthday, 'YYYY-MM-DD') AS bday FROM bday WHERE username = '{username}';"
     conn = connect_postgres(db_params)
     with conn.cursor() as cursor:
         cursor.execute(query)
-        # Important to commit the COPY or any other UPSERT/DELETE
-        conn.commit()
+        # If no results then return None
         if cursor.rowcount == 0:
             print("PostgreSQL connection closed")
             return None
         else:
+            # Fetch the first row (we could use here LIMIT 1)
             data = cursor.fetchone()
             print("PostgreSQL connection closed")
             return data[0]
