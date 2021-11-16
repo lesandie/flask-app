@@ -1,2 +1,4 @@
 Flask
 gunicorn
+Pytest
+psycopg2-binary

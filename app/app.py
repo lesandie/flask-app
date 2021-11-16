@@ -1,47 +1,58 @@
 #!/usr/bin/env python3
 
-"""See flask.palletsprojects.com.  This used Flask 1.1.1.  Run with:
+"""
 FLASK_APP=simple_flask_server.py flask run -h 127.0.0.1
 """
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import sys, os
-
+from datetime import datetime
+from database import *
+import time
 
 app = Flask(__name__)
 
-
-records = {}
-
+db_params = {
+        'db': 'test',
+        'user': 'test',
+        'pass': 'test',
+        'host': 'localhost',
+        'port': '5432'
+    }
 
 @app.route('/')
 def hello():
     return "hello"
 
 
-@app.route('/api/v1/addrecord/<name>', methods=['POST'])
-def addrecord(name):
+@app.route('/hello/<username>', methods=['PUT'])
+def adduser(username):
     # a multidict containing POST data
-    print(f"records[{name}]={request.data}")
-    records[name] = request.data
-    return ""
+    content = request.json
+    put_data(username, content['dateOfBirth'], db_params)
+    return "", 204
 
+@app.route('/hello/<username>', methods=['GET'])
+def getuser(username):
+    date = get_data(username, db_params)
+    if date is None:
+        not_found = f"{username} not found"
+        return jsonify(message=not_found)
+    else:
 
-@app.route('/api/v1/shutdown', methods=['GET'])
-def shutdown():
-    # See https://stackoverflow.com/a/17053522/34935
-    def shutdown_server():
-        func = request.environ.get('werkzeug.server.shutdown')
-        if func is None:
-            raise RuntimeError('Not running with the Werkzeug Server')
-        func()
-    shutdown_server()
-    return "Shutting down"
-
-
-@app.route('/api/v1/getrecord/<name>', methods=['GET'])
-def getrecord(name):
-    return records[name]
-
+        tday = datetime.today()
+        bday = datetime.strptime(date, '%Y-%m-%d')
+        if tday == bday:
+            bday_is = f"Hello! {username} Happy Birthday!"
+            return jsonify(message=bday_is)
+        elif tday < bday:
+            delta = bday - tday
+            bday_is = f"Hello! {username} your bday is in {delta.days} days"
+            return jsonify(message=bday_is)
+        else:
+            delta = tday - bday
+            bday_is = f"Hello! {username} your bday is in {delta.days} days"
+            return jsonify(message=bday_is)
+             
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
