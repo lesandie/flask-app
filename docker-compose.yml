@@ -6,11 +6,11 @@ services:
     ports:
       - "6000:6000" # listen
     environment:
-      - "PGDB=test"
-      - "PGUSER=test"
-      - "PGPASS=test"
-      - "PGHOST=192.168.11.171"
-      - "PGPORT=5432"
+      - "POSTGRES_DB=test"
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASS=test"
+      - "POSTGRES_HOST=192.168.11.171"
+      - "POSTGRES_PORT=5432"
     networks:
       - myapp
       

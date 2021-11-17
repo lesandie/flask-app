@@ -1,4 +1,5 @@
 from helloapp import app
+from database import *
 import os
 
 if __name__ == "__main__":
