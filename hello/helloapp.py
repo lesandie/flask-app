@@ -10,7 +10,7 @@ from database import *
 
 app = Flask(__name__)
 
-# DB params that will be used to connec to the db
+# DB params that will be used to connect to the db
 db_params = {
         'db': os.environ.get("PGDB"),
         'user': os.environ.get("PGUSER"),
