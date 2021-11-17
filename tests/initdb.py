@@ -20,7 +20,7 @@ def main():
         if(pg_pool):
             print("PostgreSQL connection created")
             with pg_pool.cursor() as cursor:
-                query = f"CREATE TABLE bday (id_user serial NOT NULL PRIMARY KEY, username VARCHAR(50) NOT NULL, birthday date NOT NULL"
+                query = f"CREATE TABLE bday (id_user serial NOT NULL PRIMARY KEY, username VARCHAR(50) NOT NULL, birthday date NOT NULL);"
                 cursor.execute(query)
                 query = f"INSERT INTO bday (username, birthday) VALUES ('test', to_timestamp('1970-01-01', 'YYYY-MM-DD'));"
                 cursor.execute(query)
