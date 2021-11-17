@@ -7,11 +7,11 @@ def main():
     """
     #db params for the service container in github actions
     db_params = {
-        'db': 'postgres',
-        'user': 'postgres',
+        'db': os.environ.get("POSTGRES_DB"),
+        'user': os.environ.get("POSTGRES_USER"),
         'pass': os.environ.get("POSTGRES_PASSWORD"),
-        'host': 'localhost',
-        'port': '5432'
+        'host': os.environ.get("POSTGRES_HOST"),
+        'port': os.environ.get("POSTGRES_PORT")
     }
     
     try:

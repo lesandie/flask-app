@@ -45,6 +45,13 @@ jobs:
     - name: Init DB
       run: |
         python ./tests/initdb_ga.py
+      env:
+        # Default postgres parameters for testing
+        POSTGRES_HOST: Postgres
+        POSTGRES_PORT: 5432
+        POSGRES_USER: postgres
+        POSGRES_PASSWORD: postgres
+        POSGRES_DB: postgres
     
     - name: Test with pytest
       run: |

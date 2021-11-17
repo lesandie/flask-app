@@ -8,11 +8,11 @@ def main():
     # Local initialization for postgresql
     
     db_params = {
-        'db': os.environ.get("PGDB"),
-        'user': os.environ.get("PGUSER"),
-        'pass': os.environ.get("PGPASS"),
-        'host': os.environ.get("PGHOST"),
-        'port': os.environ.get("PGPORT")
+        'db': os.environ.get("POSTGRES_DB"),
+        'user': os.environ.get("POSTGRES_USER"),
+        'pass': os.environ.get("POSTGRES_PASSWORD"),
+        'host': os.environ.get("POSTGRES_HOST"),
+        'port': os.environ.get("POSTGRES_PORT")
     }
 
     try:
