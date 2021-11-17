@@ -1,6 +1,15 @@
 # Database methods using psycopg2
 
 import psycopg2
+import os
+
+db_params = {
+    'db': os.environ.get("POSTGRES_DB"),
+    'user': os.environ.get("POSTGRES_USER"),
+    'pass': os.environ.get("POSTGRES_PASSWORD"),
+    'host': os.environ.get("POSTGRES_HOST"),
+    'port': os.environ.get("POSTGRES_PORT")
+    }
 
 def connect_postgres(db_params: dict):
         """

@@ -83,4 +83,13 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ pytest tests/tests.py
 ```
 
+## Docker image
+
+To generate a docker image and start the container in a local environment:
+
+```bash
+(virtualenv)$ sudo docker build -t helloapp .
+(virtualenv)$ sudo docker-compose up -d
+```
+
 ## PostgreSQL Cluster

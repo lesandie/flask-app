@@ -1,8 +1,8 @@
 version: "3.7"
 services:
   bday_app:
-    container_name: bday_app
-    image: myapp
+    container_name: helloapp
+    image: helloapp
     ports:
       - "6000:6000" # listen
     environment:
