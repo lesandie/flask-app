@@ -1,16 +1,10 @@
 version: "3.7"
 services:
-  bday_app:
+  helloapp:
     container_name: helloapp
     image: helloapp
     ports:
-      - "6000:6000" # listen
-    environment:
-      - "POSTGRES_DB=test"
-      - "POSTGRES_USER=test"
-      - "POSTGRES_PASS=test"
-      - "POSTGRES_HOST=192.168.11.171"
-      - "POSTGRES_PORT=5432"
+      - 6000:6000 # listen
     networks:
       - myapp
       
