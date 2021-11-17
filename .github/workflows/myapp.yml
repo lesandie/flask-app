@@ -61,6 +61,12 @@ jobs:
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: postgres
     
+    - name: Run helloapp
+      run: |
+        python ./hello/helloapp.py
+      env:
+        PORT: 6000
+
     - name: Test with pytest
       run: |
         pytest ./tests/tests.py
