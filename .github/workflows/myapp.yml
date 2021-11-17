@@ -44,10 +44,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Init DB
       run: |
-        python ./tests/initdb_ga.py
+        python ./tests/initdb.py
       env:
         # Default postgres parameters for testing
-        POSTGRES_HOST: Postgres
+        POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
         POSGRES_USER: postgres
         POSGRES_PASSWORD: postgres
