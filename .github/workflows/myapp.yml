@@ -48,7 +48,7 @@ jobs:
         python ./tests/initdb.py
       env:
         # Default postgres parameters for testing
-        POSTGRES_HOST: postgres
+        POSTGRES_HOST: localhost
         POSTGRES_PORT: 5432
         POSGRES_USER: postgres
         POSGRES_PASSWORD: postgres
