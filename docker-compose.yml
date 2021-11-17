@@ -1,13 +1,20 @@
-version: '3.9'
+version: "3.7"
 services:
-  myapp:
-    image: myapp
+  bday_app:
     container_name: bday_app
+    image: myapp
     ports:
-      - 6000:6000
-    environment: 
-      PG_DATABASE: test
-      PG_PORT: 5432
-      PG_USER: test
-      PG_PASS: test
-      PG_HOST: 192.168.11.171
+      - "6000:6000" # listen
+    environment:
+      - "PGDB=test"
+      - "PGUSER=test"
+      - "PGPASS=test"
+      - "PGHOST=192.168.11.171"
+      - "PGPORT=5432"
+    networks:
+      - myapp
+      
+# External access to PG database      
+networks:
+  myapp:
+    external: true
