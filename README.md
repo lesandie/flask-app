@@ -41,16 +41,12 @@ The app is located in the hello folder. To test it locally there are some requir
 
 * Install PostgreSQL and spin up an instance. Be sure that it listens in 0.0.0.0 or ::1
 
-* Create a test database with the credentials you want
+* Create a test database with the credentials you want.
 
-* Create a table as shown below: 
+* Initialize the DB by executing the initdb.py script: 
 
-```sql
-CREATE TABLE bday (
-        id_user serial NOT NULL PRIMARY KEY,
-        username VARCHAR(50) NOT NULL,
-        birthday date NOT NULL
-);
+```bash
+(virtualenv)$ python tests/initdb.py
 ```
 
 * Create a Python virtualenv (3.8 or 3.9), you can use pyenv.
@@ -58,13 +54,13 @@ CREATE TABLE bday (
 * Install the requirements:
 
 ```bash
-(virtualenv)$ pip install -r hello/requirements.txt
+(virtualenv)$ pip install -r requirements.txt
 ```
 
 * export the needed ENV variables. Have a look at the env file and change them according to your preferences:
 
 ```bash
-(virtualenv)$ source ./env.sh
+(virtualenv)$ source env.sh
 ```
 
 * Launch in a new terminal the Flask app:
@@ -83,8 +79,8 @@ CREATE TABLE bday (
 * There are some tests designed with Pytest. To use them open a new terminal:
 
 ```bash
-(virtualenv)$ source ./env.sh
-(virtualenv)$ pytest ./tests/tests.py
+(virtualenv)$ source env.sh
+(virtualenv)$ pytest tests/tests.py
 ```
 
 ## PostgreSQL Cluster

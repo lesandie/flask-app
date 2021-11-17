@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/dnieto/Repos/revolut/hello")
+sys.path.append("/home/dnieto/Repos/flask-app/hello")
 import requests
 import json
 import os
