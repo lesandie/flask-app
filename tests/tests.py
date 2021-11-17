@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/dnieto/Repos/flask-app/hello")
+sys.path.append("./hello")
 import requests
 import json
 import os
@@ -7,11 +7,11 @@ from helloapp import *
 from database import *
 
 db_params = {
-        'db': os.environ.get("POSTGRES_DB"),
-        'user': os.environ.get("POSTGRES_USER"),
-        'pass': os.environ.get("POSTGRES_PASSWORD"),
-        'host': os.environ.get("POSTGRES_HOST"),
-        'port': os.environ.get("POSTGRES_PORT")
+    'db': os.environ.get("POSTGRES_DB"),
+    'user': os.environ.get("POSTGRES_USER"),
+    'pass': os.environ.get("POSTGRES_PASSWORD"),
+    'host': os.environ.get("POSTGRES_HOST"),
+    'port': os.environ.get("POSTGRES_PORT")
     }
 
 def test_database():

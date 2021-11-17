@@ -2,8 +2,8 @@
 #Listening Port
 export PORT=6000
 #Postgres connection vars
-export PGDB=test
-export PGUSER=test
-export PGPASS=test
-export PGPORT=5432
-export PGHOST=192.168.11.171
+export POSTGRES_DB=test
+export POSTGRES_USER=test
+export POSTGRES_PASSWORD=test
+export POSTGRES_PORT=5432
+export POSTGRES_HOST=192.168.11.171
