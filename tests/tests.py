@@ -34,11 +34,12 @@ def test_add_username():
     #HTTP methods in the requests library have a json parameter that will perform json.dumps() 
     #and set the Content-Type header to application/json:
     # Instead of response = requests.put(url, data=data, headers=headers)
-    url = f"""http://localhost:6000/hello/test"""
+    url = f"http://localhost:6000/hello/test"
     # send PUT request
     response = requests.put(url, json=data)
     if response.status_code != 204:
-        print(response.content)
+        print(response.status_code)
+        print(response.text)
         assert False
     else:
         assert True
