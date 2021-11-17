@@ -63,7 +63,7 @@ jobs:
     
     - name: Run helloapp
       run: |
-        python ./hello/helloapp.py
+        python ./hello/helloapp.py &
       env:
         PORT: 6000
 
