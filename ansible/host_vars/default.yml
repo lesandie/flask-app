@@ -1,0 +1,3 @@
+---
+remote_user: ubuntu
+docker_network_name: app-network

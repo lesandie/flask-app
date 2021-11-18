@@ -1,0 +1,26 @@
+---
+- name: Update cache and Install docker
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - docker-compose
+
+- name: Install Python Docker module
+  pip:
+    name: docker
+
+- name: Enable docker services
+  systemd:
+    name: docker
+    enabled: yes
+    masked: no
+
+- name: Add non-root to docker group
+  user:
+    name: ubuntu
+    groups: [docker]
+    append: yes

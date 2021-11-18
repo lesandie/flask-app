@@ -43,9 +43,10 @@ The app is located in the hello folder. To test it locally there are some requir
 
 * Create a test database with the credentials you want.
 
-* Initialize the DB by executing the initdb.py script: 
+* Initialize the DB by sourcing the ENV vars and executing the initdb.py script: 
 
 ```bash
+(virtualenv)$ source env.sh
 (virtualenv)$ python tests/initdb.py
 ```
 
@@ -57,7 +58,7 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ pip install -r requirements.txt
 ```
 
-* export the needed ENV variables. Have a look at the env file and change them according to your preferences:
+* Export the needed ENV variables if needed. Have a look at the env file and change them according to your preferences:
 
 ```bash
 (virtualenv)$ source env.sh
@@ -76,7 +77,7 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ curl http://localhost:8080/hello/username
 ```
 
-* There are some tests designed with Pytest. To use them open a new terminal:
+* There are a couple of tests designed with Pytest. To use them open a new terminal:
 
 ```bash
 (virtualenv)$ source env.sh
@@ -91,5 +92,7 @@ To generate a docker image and start the container in a local environment:
 (virtualenv)$ sudo docker build -t helloapp .
 (virtualenv)$ sudo docker-compose up -d
 ```
+Be sure to change the ENV vars in the ```Dockerfile``` to config the PostgreSQL instance to your needs.
+
 
 ## PostgreSQL Cluster

@@ -19,6 +19,7 @@ ENV PYTHONUNBUFFERED True
 
 # Copy local code to the container image.
 ADD hello /hello
+COPY requirements.txt /hello
 WORKDIR /hello
 
 # Install production dependencies.
