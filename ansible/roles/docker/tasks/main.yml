@@ -21,6 +21,6 @@
 
 - name: Add non-root to docker group
   user:
-    name: dnieto
+    name: "{{ raspi_user }}"
     groups: [docker]
     append: yes

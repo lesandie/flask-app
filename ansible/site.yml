@@ -2,7 +2,10 @@
 - name: Install boostrap, docker and deploy
   hosts: all
   vars:
-    remote_user: dnieto
+    raspi_user: dnieto
+    path_repos: /home/dnieto/Repos
+  #vars_files:
+  #  - /vars/external_vars.yml
   become: yes
   become_method: sudo 
 

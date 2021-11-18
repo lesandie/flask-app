@@ -3,18 +3,18 @@
   git:
     repo: 'https://github.com/lesandie/flask-app.git'
     clone: yes
-    dest: ./flask-app
+    dest: "{{ path_repos }}"
     force: yes
 
 - name: Docker build
   community.docker.docker_image:
     build:
-      path: ./flask-app
+      path: "{{ path_repos }}/flask-app"
     name: dnieto/helloapp
     tag: v1
     source: build
 
 - name: docker-compose up
   community.docker.docker_compose:
-    project_src: ./flask-app
+    project_src: "{{ path_repos }}/flask-app"
     state: present
