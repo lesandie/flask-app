@@ -1,12 +1,20 @@
 ---
 - name: Fetch the repo from GitHub
   git:
-    repo: 'https://github.com/RupGautam/py-flask-ansible-docker.git'
+    repo: 'https://github.com/lesandie/flask-app.git'
     clone: yes
     dest: ./flask-app
     force: yes
 
-- name: Docker-compose up -d
-  shell: docker-compose up -d --build --remove-orphans
-  args:
-    chdir: ./flask-app
+- name: Docker build
+  community.docker.docker_image:
+    build:
+      path: ./flask-app
+    name: dnieto/helloapp
+    tag: v1
+    source: build
+
+- name: docker-compose up
+  community.docker.docker_compose:
+    project_src: ./flask-app
+    state: present

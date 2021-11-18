@@ -21,6 +21,6 @@
 
 - name: Add non-root to docker group
   user:
-    name: ubuntu
+    name: dnieto
     groups: [docker]
     append: yes

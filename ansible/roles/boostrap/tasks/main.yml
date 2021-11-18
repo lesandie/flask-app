@@ -1,10 +1,5 @@
 ---
-- name: Install aptitude
-  apt:
-    name: aptitude
-    state: latest
-    update_cache: yes
-
+  
 - name: Install essentials 
   apt:
     name: "{{ item }}"
