@@ -11,6 +11,13 @@ jobs:
   build_app:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
+    env:
+        # Default postgres parameters for testing
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
 
     services:
       # Label used to access the service container
@@ -53,32 +60,11 @@ jobs:
     - name: Init DB
       run: |
         python tests/initdb.py
-      env:
-        # Default postgres parameters for testing
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: postgres
     
     - name: Run helloapp
       run: |
         python hello/helloapp.py &
-      env:
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: postgres
-        PORT: 6000
-
+      
     - name: Test with pytest
       run: |
         pytest tests/tests.py
-      env:
-        # Default postgres parameters
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: postgres
