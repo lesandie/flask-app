@@ -5,11 +5,11 @@ FROM python:3.9-slim
 # ENVs for postgresql database
 # Change them and rebuild the docker image
 
-ENV POSTGRES_DB=test
+ENV POSTGRES_DB=tests
 ENV POSTGRES_PORT=5432
 ENV POSTGRES_USER=test
 ENV POSTGRES_PASSWORD=test
-ENV POSTGRES_HOST=192.168.11.171
+ENV POSTGRES_HOST=192.168.11.149
 
 # listening port
 ENV PORT=6000
