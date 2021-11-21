@@ -127,15 +127,15 @@ $ kubectl apply -f postgres-persistentvol.yml
 $ kubectl apply -f postgres-service.yml
 ```
 
-Create the hello-app deployment (with external IP and load balancer and autoscaling)
-```bash
-$ kubectl apply -f helloapp-deployment.yml
-```
-
 Init the DB schema and change the POSTGRESQL_HOST env var to the internal IP postgresql pod provisioned by the Cluster.
 
 ```bash
 $ python tests/initdb.py
+```
+
+Create the hello-app deployment (with external IP and load balancer and autoscaling)
+```bash
+$ kubectl apply -f helloapp-deployment.yml
 ```
 
 Test the app using curl again:
@@ -155,3 +155,7 @@ the backup script can be summoned from a cron job or a Github actions workflow:
 ```bash
 $ backup-pg_dump.sh
 ```
+
+## Future improvements
+
+As the cluster only has a standalone PostgreSQL service (HA in different zones) I would create another PostgreSQL pod configured in streaming replication mode with a failover script, to automatically change from hot_standby to master in case anything goes wrong with the master pod.
