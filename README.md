@@ -71,8 +71,8 @@ The app is located in the hello folder. To test it locally there are some requir
 * To test the app simply use curl and change the dateOfBirth and username:
 
 ```bash
-(virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT http://localhost:8080/hello/username
-(virtualenv)$ curl http://localhost:8080/hello/username
+(virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT http://localhost:6000/hello/username
+(virtualenv)$ curl http://localhost:6000/hello/username
 ```
 
 * There are a couple of tests designed with Pytest. To use them open a new terminal:
@@ -96,6 +96,9 @@ Be sure to change the ENV vars in the ```Dockerfile``` to config the PostgreSQL 
 ## Deploy Cluster to GC
 
 In the GKE folder there are 3 charts to provision and deploy a postgresql service using a persistent storage volume across two zones and the hello-app. A [GKE regional cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters) offers HA and replicated control planes and nodes in different zones within the region.
+
+<img src="gke-cluster.png" alt="cv" width="600"/><br>
+
 
 First execute the ansible playbook to generate locally the hello-app container image and push it to the GC registry (You have to configure your credentials properly).
 Change the host from the group (ansible/hosts) to localhost or any localnet ip
