@@ -1,5 +1,6 @@
 ---
 - name: Update cache and Install docker
+  become: true
   apt:
     name: "{{ item }}"
     state: latest
@@ -7,20 +8,24 @@
   loop:
     - docker-ce
     - docker-ce-cli
-    - docker-compose
-
-- name: Install Python Docker module
-  pip:
-    name: docker
+    - containerd.io
 
 - name: Enable docker services
+  become: true
   systemd:
     name: docker
     enabled: yes
     masked: no
 
 - name: Add non-root to docker group
+  become: true
   user:
     name: "{{ raspi_user }}"
     groups: [docker]
     append: yes
+
+- name: Install docker and docker-compose via pip
+  pip:
+    name:
+      - docker
+      - docker-compose

@@ -1,15 +1,18 @@
 ---
 - name: Install boostrap, docker and deploy
   hosts: all
+  #debugger: always
   vars:
     raspi_user: dnieto
     path_repos: /home/dnieto/Repos
+     gcp_project: encoded-mark-332220
+     gcp_cred_kind: serviceaccount
   #vars_files:
   #  - /vars/external_vars.yml
-  become: yes
-  become_method: sudo 
+  #become: yes
+  #become_method: sudo 
 
   roles:
     - boostrap
     - docker 
-    - deploy 
+    - deploy

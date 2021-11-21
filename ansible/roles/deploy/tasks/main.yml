@@ -1,7 +1,14 @@
 ---
+- name: Create a directory if it does not exist
+  file:
+    path: "{{ path_repos }}/flask-app"
+    state: directory
+    mode: 0755
+
+
 - name: Fetch the repo from GitHub
   git:
-    repo: 'https://github.com/lesandie/flask-app.git'
+    repo: https://github.com/lesandie/flask-app.git
     clone: yes
     dest: "{{ path_repos }}"
     force: yes
@@ -10,11 +17,14 @@
   community.docker.docker_image:
     build:
       path: "{{ path_repos }}/flask-app"
-    name: dnieto/helloapp
+    name: eu.gcr.io/encoded-mark-332220/helloapp
     tag: v1
     source: build
+    push: yes
 
-- name: docker-compose up
-  community.docker.docker_compose:
-    project_src: "{{ path_repos }}/flask-app"
-    state: present
+#Deploy locally for testing
+#- name: docker-compose up
+#  community.docker.docker_compose:
+#    project_src: "{{ path_repos }}/flask-app"
+#    state: present
+

@@ -1,2 +1,7 @@
-[cassius]
-192.168.11.149 ansible_python_interpreter=/usr/bin/python3
+[ansible_tests]
+192.168.11.172
+
+[ansible_tests:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+

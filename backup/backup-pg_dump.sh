@@ -30,6 +30,10 @@ CMD_BACKUP="${PGDUMP} -h ${PGHOST} -U ${PGUSER} -w ${BBDD} > ${BACKUP}/${MFILE}"
 CMD_DUMP="${PGDUMP} -h ${PGHOST} -U ${PGUSER} -w -Fc ${BBDD} > ${BACKUP}/${MFILE}"
 CMD_END="${LOGGER} $0: *** ${BBDD} backup ended @ $(date) ***"
 
+#Google cloud 
+GCS_KEY_FILE_PATH="../.gcs_credentials"
+BOTO_CONFIG_PATH="../.boto"
+GCS_BUCKET="gs://pg_backup_revolut"
 
 dir_exists() {
         # Make sure backup directory exists

@@ -21,21 +21,19 @@
                 * B. If username’s birthday is today:
 { “message”: “Hello, <username>! Happy birthday!” }
 
-2. For the database I'll use PostgreSQL. This cluster must be highly available
+2. For the database I'll use PostgreSQL (Kubernetes cluster GKE). This cluster is highly available
 in case one zone goes down and even in case a whole region goes down due to a natural
-disaster (tip: if you have proper automation backup and recovery in failover region could
-be an option) - Using managed solution is not allowed
-3. Produce a system diagram of your solution deployed to either AWS or GCP (it's not
-required to support both cloud platforms).
-4. Write configuration scripts for building and no-downtime production deployment of
+disaster with a proper automation backup and recovery in failover region.
+
+3. There is diagram of the solution deployed to GCP 
+
+4. Ansible playbook for building and no-downtime production deployment of
 this application, keeping in mind aspects that an SRE would have to consider.
 
-Implicit requirements:
-1. The code produced by you is expected to be of high quality.
-2. The solution must have tests, runnable locally, and deployable to the cloud.
+5. The tests, are runnable locally with Pytest, and deployable to the cloud using Github actions
 
 
-## Hello app
+## Deploy and test locally Hello app
 
 The app is located in the hello folder. To test it locally there are some requirements to be met:
 
@@ -70,7 +68,7 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ python hello/helloapp.py
 ```
 
-* To test the app simple use curl and change the dateOfBirth and username:
+* To test the app simply use curl and change the dateOfBirth and username:
 
 ```bash
 (virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT http://localhost:8080/hello/username
@@ -84,7 +82,7 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ pytest tests/tests.py
 ```
 
-## Docker image
+## Build Docker image locally
 
 To generate a docker image and start the container in a local environment:
 
@@ -95,4 +93,19 @@ To generate a docker image and start the container in a local environment:
 Be sure to change the ENV vars in the ```Dockerfile``` to config the PostgreSQL instance to your needs.
 
 
-## PostgreSQL Cluster
+## Deploy PostgreSQL Cluster to GC
+
+In the GKE folder there are 3 charts to provision and deploy a postgresql service using a persistent storage volume across two zones
+
+```bash
+$ kubectl apply -f postgres-deployment.yml
+$ kubectl apply -f postgres-persistentvol.yml
+$ kubectl apply -f postgres-service.yml
+$ kubectl apply -f helloapp-deployment.yml
+```
+
+## Backup
+
+The backup script uses GCS to store a pg_dump of a specific database. The dumps are generated in text format and in compressed format (```pg_dump -Fc```).
+
+the backup script can be summoned from a cron job or a Github actions workflow. 
