@@ -1,4 +1,4 @@
-# Simple web application example and deployment to public cloud
+# Simple flask web app example and deployment to Google Cloud
 
 ## Rationale
 
