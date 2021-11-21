@@ -82,6 +82,8 @@ The app is located in the hello folder. To test it locally there are some requir
 (virtualenv)$ pytest tests/tests.py
 ```
 
+Moreover, there is a Github Action to test the hello-app after a push/PR in the repo.
+
 ## Build Docker image locally
 
 To generate a docker image and start the container in a local environment:
