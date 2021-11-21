@@ -13,11 +13,11 @@
     dest: "{{ path_repos }}"
     force: yes
 
-- name: Docker build
+- name: Docker build and push
   community.docker.docker_image:
     build:
       path: "{{ path_repos }}/flask-app"
-    name: eu.gcr.io/encoded-mark-332220/helloapp
+    name: "eu.gcr.io/{{ gcp_project }}/helloapp"
     tag: v1
     source: build
     push: yes

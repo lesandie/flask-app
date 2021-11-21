@@ -93,19 +93,62 @@ To generate a docker image and start the container in a local environment:
 Be sure to change the ENV vars in the ```Dockerfile``` to config the PostgreSQL instance to your needs.
 
 
-## Deploy PostgreSQL Cluster to GC
+## Deploy Cluster to GC
 
-In the GKE folder there are 3 charts to provision and deploy a postgresql service using a persistent storage volume across two zones
+In the GKE folder there are 3 charts to provision and deploy a postgresql service using a persistent storage volume across two zones and the hello-app. A [GKE regional cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/regional-clusters) offers HA and replicated control planes and nodes in different zones within the region.
+
+First execute the ansible playbook to generate locally the hello-app container image and push it to the GC registry (You have to configure your credentials properly).
+Change the host from the group (ansible/hosts) to localhost or any localnet ip
+
+```bash
+$ cd ansible
+$ ansible-playbook site.yml --ask-become-pass
+```
+
+After this, the hello-app image is pushed into the GC registry
+
+Provision the Regional GKE cluster:
+
+```bash
+gcloud container clusters create "hello-gke-regional" \
+  --region "eu-west3" \
+  --machine-type "e2-standard-2" --disk-type "pd-standard" --disk-size "100" \
+  --num-nodes "1" --node-locations "eu-west3-b","eu-west3-c"
+```
+
+Create the persistent vol. deployment and postgresql service which is configured as an internal load balancer.
 
 ```bash
 $ kubectl apply -f postgres-deployment.yml
 $ kubectl apply -f postgres-persistentvol.yml
 $ kubectl apply -f postgres-service.yml
+```
+
+Create the hello-app deployment (with external IP and load balancer and autoscaling)
+```bash
 $ kubectl apply -f helloapp-deployment.yml
 ```
+
+Init the DB schema and change the POSTGRESQL_HOST env var to the internal IP postgresql pod provisioned by the Cluster.
+
+```bash
+$ python tests/initdb.py
+```
+
+Test the app using curl again:
+
+```bash
+(virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT https://EXTERNAL_IP/hello/username
+(virtualenv)$ curl https://EXTERNAL_IP/hello/username
+```
+
 
 ## Backup
 
 The backup script uses GCS to store a pg_dump of a specific database. The dumps are generated in text format and in compressed format (```pg_dump -Fc```).
 
-the backup script can be summoned from a cron job or a Github actions workflow. 
+the backup script can be summoned from a cron job or a Github actions workflow:
+
+```bash
+$ backup-pg_dump.sh
+```
