@@ -5,8 +5,8 @@
   vars:
     raspi_user: dnieto
     path_repos: /home/dnieto/Repos
-     gcp_project: encoded-mark-332220
-     gcp_cred_kind: serviceaccount
+    gcp_project: encoded-mark-332220
+    gcp_cred_kind: serviceaccount
   #vars_files:
   #  - /vars/external_vars.yml
   #become: yes
@@ -14,5 +14,5 @@
 
   roles:
     - boostrap
-    - docker 
+    - docker
     - deploy

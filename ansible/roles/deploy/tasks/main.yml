@@ -10,10 +10,10 @@
   git:
     repo: https://github.com/lesandie/flask-app.git
     clone: yes
-    dest: "{{ path_repos }}"
+    dest: "{{ path_repos }}/flask-app"
     force: yes
 
-- name: Docker build and push
+- name: Docker build and push to Registry
   community.docker.docker_image:
     build:
       path: "{{ path_repos }}/flask-app"
@@ -23,8 +23,8 @@
     push: yes
 
 #Deploy locally for testing
-#- name: docker-compose up
-#  community.docker.docker_compose:
-#    project_src: "{{ path_repos }}/flask-app"
-#    state: present
+- name: docker-compose up
+  community.docker.docker_compose:
+    project_src: "{{ path_repos }}/flask-app"
+    state: present
 
