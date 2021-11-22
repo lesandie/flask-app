@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.3
 
-FROM python:3.9-slim-bullseye
+FROM python:3.9-slim
 
 # ENVs are built bith buildkit and into secret ENVs
 
@@ -8,7 +8,7 @@ FROM python:3.9-slim-bullseye
 ENV POSTGRES_DB=tests
 ENV POSTGRES_PORT=5432
 ENV POSTGRES_USER=test
-#ENV POSTGRES_PASSWORD=""
+ENV POSTGRES_PASSWORD=test
 ENV POSTGRES_HOST=192.168.11.149
 
 # listening port
