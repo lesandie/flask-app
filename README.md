@@ -161,6 +161,7 @@ $ backup-pg_dump.sh
 ## WIP improvements
 
 * Use docker secrets to store credentials and also an ansible vault.
+* Change the code to use a connection pool with psycopg/sqlalchemy or better, use pgpool or pgbouncer to deploy a connection pooling/balancer service
 * Change from standard container registry to Artifacts registry (GKE)
 * Improve the PostgreSQL service (HA in different zones) creating another deployment/service for PostgreSQL configured in streaming replication mode with a failover script, to automatically change from hot_standby to master in case anything goes wrong with the master pod.
 
