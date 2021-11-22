@@ -5,21 +5,20 @@
 1. A simple "Hello World" application that exposes the following HTTP-based APIs:
 
 * Description: Saves/updates the given user’s name and date of birth in the database.
-        * Request: PUT /hello/<username> { “dateOfBirth”: “YYYY-MM-DD” }
-        * Response: 204 No Content
-        * Note:
-                * <username> must contain only letters.
-                * YYYY-MM-DD must be a date before the today date.
+  * Request: PUT /hello/<username> { “dateOfBirth”: “YYYY-MM-DD” }
+  * Response: 204 No Content
+  * Note:
+    * <username> must contain only letters.
+    * YYYY-MM-DD must be a date before the today date.
 
 * Description: Returns hello birthday message for the given user
-        * Request: Get /hello/<username>
-        * Response: 200 OK
-        * Response Examples:
-                * A. If username’s birthday is in N days:
-{ “message”: “Hello, <username>! Your birthday is in N day(s)”
-}
-                * B. If username’s birthday is today:
-{ “message”: “Hello, <username>! Happy birthday!” }
+  * Request: Get /hello/<username>
+  * Response: 200 OK
+  * Response Examples:
+    * A. If username’s birthday is in N days:
+        { “message”: “Hello, <username>! Your birthday is in N day(s)” }
+    * B. If username’s birthday is today:
+        { “message”: “Hello, <username>! Happy birthday!” }
 
 2. For the database I'll use PostgreSQL (Kubernetes cluster GKE). This cluster is highly available
 in case one zone goes down and even in case a whole region goes down due to a natural
@@ -135,16 +134,17 @@ Init the DB schema and change the POSTGRESQL_HOST env var to the internal IP pos
 $ python tests/initdb.py
 ```
 
-Create the hello-app deployment (with external IP and load balancer and autoscaling)
+Create the hello-app deployment and service with external IP, load balancer and autoscaling
 ```bash
 $ kubectl apply -f helloapp-deployment.yml
+$ kubectl apply -f helloapp-service.yml
 ```
 
 Test the app using curl again:
 
 ```bash
-(virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT https://EXTERNAL_IP/hello/username
-(virtualenv)$ curl https://EXTERNAL_IP/hello/username
+(virtualenv)$ curl -d '{ "dateOfBirth": "YY-MM-DD" }' -H 'Content-Type: application/json' -X PUT http://EXTERNAL_IP/hello/username
+(virtualenv)$ curl http://EXTERNAL_IP/hello/username
 ```
 
 
@@ -158,6 +158,9 @@ the backup script can be summoned from a cron job or a Github actions workflow:
 $ backup-pg_dump.sh
 ```
 
-## Future improvements
+## WIP improvements
 
-As the cluster only has a standalone PostgreSQL service (HA in different zones) I would create another PostgreSQL pod configured in streaming replication mode with a failover script, to automatically change from hot_standby to master in case anything goes wrong with the master pod.
+* Use docker secrets to store credentials and also an ansible vault.
+* Change from standard container registry to Artifacts registry (GKE)
+* Improve the PostgreSQL service (HA in different zones) creating another deployment/service for PostgreSQL configured in streaming replication mode with a failover script, to automatically change from hot_standby to master in case anything goes wrong with the master pod.
+

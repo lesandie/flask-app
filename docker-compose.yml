@@ -2,7 +2,7 @@ version: "3.7"
 services:
   helloapp:
     container_name: helloapp
-    image: helloapp
+    image: dnieto/hello-app
     ports:
       - 6000:6000 # listen
     networks:

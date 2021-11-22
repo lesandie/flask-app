@@ -1,14 +1,14 @@
-# Use the official lightweight Python image.
-# https://hub.docker.com/_/python
-FROM python:3.9-slim
+# syntax = docker/dockerfile:1.3
 
-# ENVs for postgresql database
-# Change them and rebuild the docker image
+FROM python:3.9-slim-bullseye
+
+# ENVs are built bith buildkit and into secret ENVs
+
 
 ENV POSTGRES_DB=tests
 ENV POSTGRES_PORT=5432
 ENV POSTGRES_USER=test
-ENV POSTGRES_PASSWORD=test
+#ENV POSTGRES_PASSWORD=""
 ENV POSTGRES_HOST=192.168.11.149
 
 # listening port
