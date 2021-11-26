@@ -1,7 +1,6 @@
 import requests
 import os
 from hello.helloapp import *
-from hello.database import *
 
 db_params = {
     'db': os.environ.get("POSTGRES_DB"),
