@@ -1,10 +1,7 @@
-import sys
-sys.path.append("./hello")
 import requests
-import json
 import os
-from helloapp import *
-from database import *
+from hello.helloapp import *
+from hello.database import *
 
 db_params = {
     'db': os.environ.get("POSTGRES_DB"),
