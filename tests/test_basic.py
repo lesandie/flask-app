@@ -1,5 +1,6 @@
 import requests
 import os
+import pytest
 from hello.helloapp import *
 
 db_params = {
