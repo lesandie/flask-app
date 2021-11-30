@@ -6,7 +6,7 @@ Flask birthday app for Revolut
 from flask import Flask, request, jsonify
 import sys, os
 from datetime import datetime
-from hello.database import *
+from database import *
 
 app = Flask(__name__)
 
